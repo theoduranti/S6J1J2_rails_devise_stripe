@@ -23,9 +23,11 @@ class EventsController < ApplicationController
 
   # POST /events
   # POST /events.json
+  #  NE PAS OUBLIER D'ASSIGNER L'ID DU CURRENT USER AU CREATOR_ID DE EVENT 
   def create
     @event = Event.new(event_params)
-
+    user = current_user.id
+    @event.creator_id = user
     respond_to do |format|
       if @event.save
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
